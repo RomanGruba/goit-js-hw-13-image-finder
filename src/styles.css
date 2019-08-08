@@ -10,8 +10,8 @@ html {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif,
+  'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 
   background-image: url('images/bg-pattern.png');
 }
@@ -24,21 +24,23 @@ body {
 
 .photo__item {
   list-style: none;
-  width: 260px;
+  width: 360px;
+
   margin: 10px;
 }
 
 
 .photo__item img {
   display: block;
-  max-width: 260px;
-  max-height: 100%;
+  max-width: 360px;
+  height: 220px;
+  object-fit: cover;
 }
 
 .stats {
   display: flex;
   justify-content: space-between;
-  max-width: 260px;
+  max-width: 360px;
   height: 100%;
   font-size: 10px;
 }
