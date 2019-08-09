@@ -11,16 +11,20 @@ import imgService from './js/apiService';
 const refs = {
   gallery: document.querySelector('.gallery'),
   spinner: document.querySelector('.spinner'),
+  moreBtn: document.querySelector('#moreBtn'),
+  queryBtn: document.querySelector('#queryBtn'),
 };
 
-document.querySelector('#moreBtn').addEventListener('click', async () => {
+renderForm();
+
+refs.moreBtn.addEventListener('click', async () => {
   await renderCards();
   scroll();
 });
 
-document.querySelector('#queryBtn').addEventListener('click', queryUpdate);
+refs.queryBtn.addEventListener('click', queryUpdate);
 
-renderForm();
+
 
 refs.gallery.addEventListener('click', e => modalWindow(e));
 
@@ -34,11 +38,6 @@ async function renderCards(query) {
   const markup = cards(fetchAnswer);
   refs.gallery.insertAdjacentHTML('beforeEnd', markup);
   refs.spinner.classList.remove('isActive');
-}
-
-function renderNextCards(res) {
-  const markup = cards(JSON.parse(res));
-  refs.gallery.insertAdjacentHTML('beforeEnd', markup);
 }
 
 function queryUpdate() {
