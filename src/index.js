@@ -8,6 +8,11 @@ import form from './templates/form.hbs';
 import cards from './templates/cards.hbs';
 import imgService from './js/apiService';
 
+const refs = {
+  gallery: document.querySelector('.gallery'),
+  spinner: document.querySelector('.spinner'),
+};
+
 document.querySelector('#moreBtn').addEventListener('click', async () => {
   await renderCards();
   scroll();
@@ -17,28 +22,28 @@ document.querySelector('#queryBtn').addEventListener('click', queryUpdate);
 
 renderForm();
 
-document
-  .querySelector('.gallery')
-  .addEventListener('click', e => modalWindow(e));
+refs.gallery.addEventListener('click', e => modalWindow(e));
 
 function renderForm() {
   document.querySelector('.query').insertAdjacentHTML('afterbegin', form());
 }
 
 async function renderCards(query) {
+  refs.spinner.classList.add('isActive');
   const fetchAnswer = await imgService.fetchImg(query);
   const markup = cards(fetchAnswer);
-  document.querySelector('.gallery').insertAdjacentHTML('beforeEnd', markup);
+  refs.gallery.insertAdjacentHTML('beforeEnd', markup);
+  refs.spinner.classList.remove('isActive');
 }
 
 function renderNextCards(res) {
   const markup = cards(JSON.parse(res));
-  document.querySelector('.gallery').insertAdjacentHTML('beforeEnd', markup);
+  refs.gallery.insertAdjacentHTML('beforeEnd', markup);
 }
 
 function queryUpdate() {
   imgService.resetPage();
-  document.querySelector('.gallery').innerHTML = '';
+  refs.gallery.innerHTML = '';
   const newQuery = document.querySelector('input[name="query"]').value;
   imgService.searchQuery = newQuery;
   renderCards(newQuery);
@@ -64,9 +69,7 @@ function modalWindow(e) {
   }
 }
 
-const gallery = document.querySelector('.gallery');
-
-const infScroll = new InfiniteScroll(gallery, {
+const infScroll = new InfiniteScroll(refs.gallery, {
   path: 'page/{{#}}',
   responseType: 'text',
   history: false,
