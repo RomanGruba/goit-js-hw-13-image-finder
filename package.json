@@ -48,8 +48,10 @@
     "webpackbar": "^3.2.0"
   },
   "dependencies": {
+    "basiclightbox": "^5.0.2",
     "core-js": "^3.1.4",
     "fast-async": "^6.3.8",
-    "handlebars": "^4.1.2"
+    "handlebars": "^4.1.2",
+    "infinite-scroll": "^3.0.6"
   }
 }

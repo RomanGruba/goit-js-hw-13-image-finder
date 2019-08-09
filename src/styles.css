@@ -20,12 +20,12 @@ body {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  min-height: 800px;
 }
 
 .photo__item {
   list-style: none;
   width: 360px;
-
   margin: 10px;
 }
 
