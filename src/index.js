@@ -69,12 +69,13 @@ function modalWindow(e) {
 }
 
 const infScroll = new InfiniteScroll(refs.gallery, {
-  path: () => '/',
+  path: () => imgService.getUrl(),
   responseType: 'text',
   history: false,
 });
 
-infScroll.on('load', () => {
+infScroll.on('load', (res) => {
+  console.log(res);
   imgService.incrementPage();
   renderCards();
 });
