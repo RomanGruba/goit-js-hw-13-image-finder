@@ -69,7 +69,7 @@ function modalWindow(e) {
 }
 
 const infScroll = new InfiniteScroll(refs.gallery, {
-  path: 'page/{{#}}',
+  path: () => '/',
   responseType: 'text',
   history: false,
 });
