@@ -1,12 +1,10 @@
 import './styles.css';
 import 'basiclightbox/dist/basicLightbox.min.css';
 import * as basicLightbox from 'basiclightbox';
-import InfiniteScroll from 'infinite-scroll';
-
 import form from './templates/form.hbs';
-
 import cards from './templates/cards.hbs';
 import imgService from './js/apiService';
+
 
 const refs = {
   gallery: document.querySelector('.gallery'),
@@ -24,8 +22,6 @@ refs.moreBtn.addEventListener('click', async () => {
 
 refs.queryBtn.addEventListener('click', queryUpdate);
 
-
-
 refs.gallery.addEventListener('click', e => modalWindow(e));
 
 function renderForm() {
@@ -38,6 +34,7 @@ async function renderCards(query) {
   const markup = cards(fetchAnswer);
   refs.gallery.insertAdjacentHTML('beforeEnd', markup);
   refs.spinner.classList.remove('isActive');
+  let items = document.querySelectorAll('.photo__item');
 }
 
 function queryUpdate() {
@@ -68,14 +65,18 @@ function modalWindow(e) {
   }
 }
 
-const infScroll = new InfiniteScroll(refs.gallery, {
-  path: () => imgService.getUrl(),
-  responseType: 'text',
-  history: false,
-});
+const options = {
+  rootMargin: '0px 0px 200px 0px',
+};
 
-infScroll.on('load', (res) => {
-  console.log(res);
-  imgService.incrementPage();
-  renderCards();
-});
+const observer = new IntersectionObserver(() => {
+  if (imgService.pageNumber > 1) {
+    console.log('obs');
+    renderCards();
+    console.log(imgService.pageNumber);
+  }
+}, options);
+
+
+observer.observe(refs.moreBtn);
+
